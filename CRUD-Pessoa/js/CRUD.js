@@ -40,21 +40,17 @@ $("#bntListaDePessoas").click(function () {
    function deuCerto(response) {
       popularLista(response)
 
-      console.log(pessoa)
-      alert(pessoa[0].nome)
    }
    function deuErro(response) {
       alert("erro")
    }
 
-
-
 });
 
 function popularLista(ListPessoas) {
-   let container = document.querySelector("#listaDePessoas");
+   let container = document.getElementById("listaDePessoas");
    for (i = '0'; i < ListPessoas.length; i++) {
-      container = insertAdjacentHTML("beforeend", organizarLista(ListPessoas[i].nome, ListPessoas[i].sobrenome, ListPessoas[i].email, ));
+      container.insertAdjacentHTML("beforeend", organizarLista(ListPessoas[i].nome, ListPessoas[i].sobrenome, ListPessoas[i].email));
    }
 }
 

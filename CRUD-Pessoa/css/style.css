@@ -1,3 +1,23 @@
-.stepp{
-    background-color: blanchedalmond
-}
+
+.lista,table{
+    font-style: italic;
+    margin: 30px;
+    border: 30px;
+    padding: 20px;
+  }
+
+  .lista,tr,th {
+    margin: 100px;
+    border: 30px;
+    padding: 30px;
+    
+  }
+
+  .lista,h1 {
+    font-style: italic;
+    font-size: 60px;
+    text-align: center;
+  }
+
+
+    

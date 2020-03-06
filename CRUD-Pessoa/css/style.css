@@ -2,6 +2,11 @@ h1 {
     font-style: italic;
     font-size: 60px;
     text-align: center;
+    text-shadow: -4px 4px rgb(188, 201, 201);
+}
+
+button {
+    background: rgb(111, 188, 252);
 }
 
 .lista,
@@ -22,10 +27,11 @@ td {
 }
 
 #bntListaDePessoas {
+    margin: 30px;
     position: relative;
-    left: 280px;
-    top: 100px;
-    width: 450px;
+    left: 48%;
+    width: 300px;
+    transform: translate(-50%, -50%);
     background-color: rgb(0, 140, 255);
     border-bottom: black;
     font-size: 30px;

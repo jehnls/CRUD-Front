@@ -68,7 +68,7 @@ function organizarLista(nome, sobrenome, email) {
         "<td> " + nome + " </td> " +
         "<td> " + sobrenome + " </td> " +
         "<td>" + email + "</td>" +
-        "<td> <button>Alterar</button>" + "</td>" +
+        "<td> <button id=" + "alterar" + ">Alterar</button>" + "</td>" +
         "<td> <button>Excluir</button>" + "</td>" +
         "</tr>"
 }

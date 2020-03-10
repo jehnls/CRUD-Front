@@ -59,16 +59,37 @@ $("#bntListaDePessoas").click(function() {
 function popularLista(ListPessoas) {
     let container = document.getElementById("listaDePessoas");
     for (i = '0'; i < ListPessoas.length; i++) {
-        container.insertAdjacentHTML("beforeend", organizarLista(ListPessoas[i].nome, ListPessoas[i].sobrenome, ListPessoas[i].email));
+        container.insertAdjacentHTML("beforeend", organizarLista(ListPessoas[i].id, ListPessoas[i].nome, ListPessoas[i].sobrenome, ListPessoas[i].email));
     }
 }
 
-function organizarLista(nome, sobrenome, email) {
+function organizarLista(id, nome, sobrenome, email) {
     return "<tr>" +
         "<td> " + nome + " </td> " +
         "<td> " + sobrenome + " </td> " +
         "<td>" + email + "</td>" +
-        "<td> <button id=" + "alterar" + ">Alterar</button>" + "</td>" +
+        "<td> <button id=" + "btnAlterar" + "\ " + "type= " + "button " + " onclick=" + "procurarPessoa(" + id + ") >Alterar</button>" + "</td>" +
         "<td> <button>Excluir</button>" + "</td>" +
         "</tr>"
 }
+
+function procurarPessoa(id) {
+    $.ajax({
+        type: "GET",
+        url: "http://localhost:8080/api/pessoa/procurar",
+        success: deuCerto,
+        error: deuErrado,
+        dataType: "json"
+    })
+
+
+    function deuCerto(response) {
+        alert("certo")
+
+    }
+
+    function deuErrado(response) {
+        alert(response, "erro")
+    }
+
+};

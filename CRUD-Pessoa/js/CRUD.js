@@ -1,4 +1,4 @@
-$("#formCadastro").click(function() {
+$("#formCadastro").click(function () {
 
     var nome = $('#nome').val();
     var sobrenome = $('#sobrenome').val();
@@ -29,7 +29,7 @@ $("#formCadastro").click(function() {
 var mesmaResposta = null;
 
 
-$("#bntListaDePessoas").click(function() {
+$("#bntListaDePessoas").click(function () {
     $.ajax({
         type: "GET",
         url: "http://localhost:8080/api/pessoa/listar",
@@ -51,7 +51,7 @@ $("#bntListaDePessoas").click(function() {
     }
 
     function deuErro(response) {
-        alert("erro" + response)
+        alert("erro")
     }
 
 });
@@ -76,7 +76,7 @@ function organizarLista(id, nome, sobrenome, email) {
 function procurarPessoa(id) {
     $.ajax({
         type: "GET",
-        url: "http://localhost:8080/api/pessoa/procurar",
+        url: "http://localhost:8080/api/pessoa/procurar/ " + id,
         success: deuCerto,
         error: deuErrado,
         dataType: "json"
@@ -84,7 +84,13 @@ function procurarPessoa(id) {
 
 
     function deuCerto(response) {
-        alert("certo")
+        window.location.replace("http://127.0.0.1:5500/CRUD-Pessoa/cadastro.html",response);
+    
+        
+
+
+
+
 
     }
 

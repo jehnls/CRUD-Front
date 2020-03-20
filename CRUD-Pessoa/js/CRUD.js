@@ -1,10 +1,11 @@
-$("#formCadastro").click(function () {
+function cadastrar(){
 
+    var id = $('#id').val();
     var nome = $('#nome').val();
     var sobrenome = $('#sobrenome').val();
     var email = $('#email').val();
 
-    var pessoa = { id: '', nome: nome, sobrenome: sobrenome, email: email };
+    var pessoa = { id: id, nome: nome, sobrenome: sobrenome, email: email };
     var dataPessoa = JSON.stringify(pessoa);
 
     $.ajax({
@@ -18,13 +19,14 @@ $("#formCadastro").click(function () {
 
     function deuCerto() {
         alert("Cadastrado com sucesso !!")
+        window.location.href("http://127.0.0.1:5500/CRUD-Pessoa/listarPessoas.html");
     }
 
     function deuErrado() {
         alert("erro")
     }
 
-});
+}
 
 var mesmaResposta = null;
 
@@ -68,10 +70,15 @@ function organizarLista(id, nome, sobrenome, email) {
         "<td> " + nome + " </td> " +
         "<td> " + sobrenome + " </td> " +
         "<td>" + email + "</td>" +
-        "<td> <button id=" + "btnAlterar" + "\ " + "type= " + "button " + " onclick=" + "procurarPessoa(" + id + ") >Alterar</button>" + "</td>" +
+        "<td>  <a href=" + "http://127.0.0.1:5500/CRUD-Pessoa/cadastro.html?" + id + ">" + "<button id=" + "btnAlterar" + "type= " + "button " + "> Alterar" + "</button>" + "</a>" + "</td>" +
         "<td> <button>Excluir</button>" + "</td>" +
         "</tr>"
 }
+
+
+
+
+
 
 function procurarPessoa(id) {
     $.ajax({
@@ -84,12 +91,10 @@ function procurarPessoa(id) {
 
 
     function deuCerto(response) {
-        window.location.replace("http://127.0.0.1:5500/CRUD-Pessoa/cadastro.html",response);
-    
-        
-
-
-
+        $("#id").val(response.id)
+        $("#nome").val(response.nome)
+        $("#sobrenome").val(response.sobrenome)
+        $("#email").val(response.email)
 
 
     }
@@ -99,3 +104,16 @@ function procurarPessoa(id) {
     }
 
 };
+
+$("#formCadastro").ready(function () {
+    var query = location.search;
+    var pessoaid = query.split("");
+
+    if (pessoaid[0] != null) {
+
+        procurarPessoa(pessoaid[1]);
+
+
+    }
+
+});

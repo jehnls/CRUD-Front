@@ -4,6 +4,7 @@ function cadastrar(){
     var nome = $('#nome').val();
     var sobrenome = $('#sobrenome').val();
     var email = $('#email').val();
+    
 
     var pessoa = { id: id, nome: nome, sobrenome: sobrenome, email: email };
     var dataPessoa = JSON.stringify(pessoa);
@@ -14,12 +15,12 @@ function cadastrar(){
         data: dataPessoa,
         contentType: "application/json",
         sucesso: deuCerto,
-        erro: deuErrado
+        erro: deuErrado,
     });
 
     function deuCerto() {
         alert("Cadastrado com sucesso !!")
-        window.location.href("http://127.0.0.1:5500/CRUD-Pessoa/listarPessoas.html");
+        window.location.assign("http://127.0.0.1:5500/CRUD-Pessoa/listarPessoas.html");
     }
 
     function deuErrado() {

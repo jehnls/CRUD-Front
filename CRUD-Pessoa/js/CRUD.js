@@ -1,10 +1,10 @@
-function cadastrar(){
+function cadastrar() {
 
     var id = $('#id').val();
     var nome = $('#nome').val();
     var sobrenome = $('#sobrenome').val();
     var email = $('#email').val();
-    
+
 
     var pessoa = { id: id, nome: nome, sobrenome: sobrenome, email: email };
     var dataPessoa = JSON.stringify(pessoa);
@@ -14,25 +14,25 @@ function cadastrar(){
         url: "http://localhost:8080/api/pessoa/cadastrar",
         data: dataPessoa,
         contentType: "application/json",
-        sucesso: deuCerto,
-        erro: deuErrado,
-    });
+        success: deuCerto(pessoa),
+        error: deuErrado,
+    })
 
-    function deuCerto() {
-        alert("Cadastrado com sucesso !!")
-        window.location.assign("http://127.0.0.1:5500/CRUD-Pessoa/listarPessoas.html");
+    function deuCerto(pessoa) {
+        alert(pessoa.nome + " Foi cadastrado com sucesso")
+        location.href("http://127.0.0.1:5500/listarPessoas.html");
     }
 
     function deuErrado() {
         alert("erro")
     }
 
-}
+};
 
 var mesmaResposta = null;
 
 
-$("#bntListaDePessoas").click(function () {
+$("#bntListaDePessoas").click(function() {
     $.ajax({
         type: "GET",
         url: "http://localhost:8080/api/pessoa/listar",
@@ -47,7 +47,7 @@ $("#bntListaDePessoas").click(function () {
             mesmaResposta = response;
             popularLista(response)
         } else {
-            alert("Nao exite mais pessoas na base de dados")
+            alert("Não exite mais pessoas na base de dados")
         }
 
 
@@ -62,7 +62,9 @@ $("#bntListaDePessoas").click(function () {
 function popularLista(ListPessoas) {
     let container = document.getElementById("listaDePessoas");
     for (i = '0'; i < ListPessoas.length; i++) {
-        container.insertAdjacentHTML("beforeend", organizarLista(ListPessoas[i].id, ListPessoas[i].nome, ListPessoas[i].sobrenome, ListPessoas[i].email));
+        if (ListPessoas[i].ativo == true) {
+            container.insertAdjacentHTML("beforeend", organizarLista(ListPessoas[i].id, ListPessoas[i].nome, ListPessoas[i].sobrenome, ListPessoas[i].email));
+        }
     }
 }
 
@@ -106,7 +108,7 @@ function procurarPessoa(id) {
 
 };
 
-$("#formCadastro").ready(function () {
+$("#formCadastro").ready(function() {
     var query = location.search;
     var pessoaid = query.split("");
 

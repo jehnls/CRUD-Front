@@ -1,33 +1,36 @@
-function cadastrar() {
+$("#FormCadastro").submit(
+    function cadastrar() {
 
-    var id = $('#id').val();
-    var nome = $('#nome').val();
-    var sobrenome = $('#sobrenome').val();
-    var email = $('#email').val();
+        var id = $('#id').val();
+        var nome = $('#nome').val();
+        var sobrenome = $('#sobrenome').val();
+        var email = $('#email').val();
 
 
-    var pessoa = { id: id, nome: nome, sobrenome: sobrenome, email: email };
-    var dataPessoa = JSON.stringify(pessoa);
+        var pessoa = { id: id, nome: nome, sobrenome: sobrenome, email: email };
+        var dataPessoa = JSON.stringify(pessoa);
 
-    $.ajax({
-        type: "POST",
-        url: "http://localhost:8080/api/pessoa/cadastrar",
-        data: dataPessoa,
-        contentType: "application/json",
-        success: deuCerto(pessoa),
-        error: deuErrado,
-    })
+        $.ajax({
+            type: "POST",
+            url: "http://localhost:8080/api/pessoa/cadastrar",
+            data: dataPessoa,
+            contentType: "application/json",
+            success: deuCerto(pessoa),
+            error: deuErrado,
+        })
 
-    function deuCerto(pessoa) {
-        alert(pessoa.nome + " Foi cadastrado com sucesso")
-        location.href("http://127.0.0.1:5500/listarPessoas.html");
+        function deuCerto(pessoa) {
+            alert(pessoa.nome + " Foi cadastrado com sucesso")
+            $(window).attr('location', 'http://localhost:52330/listarPessoas.html')
+
+        }
+
+        function deuErrado() {
+            alert("erro")
+        }
+
     }
-
-    function deuErrado() {
-        alert("erro")
-    }
-
-};
+);
 
 var mesmaResposta = null;
 

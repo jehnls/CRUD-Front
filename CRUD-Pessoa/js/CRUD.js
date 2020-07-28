@@ -1,86 +1,87 @@
-$("#FormCadastro").submit(
-    function cadastrar() {
+$("#FormCadastro").submit(function cadastrar() {
 
-        var id = $('#id').val();
-        var nome = $('#nome').val();
-        var sobrenome = $('#sobrenome').val();
-        var email = $('#email').val();
+    var id = $('#id').val();
+    var nome = $('#nome').val();
+    var sobrenome = $('#sobrenome').val();
+    var email = $('#email').val();
 
 
-        var pessoa = { id: id, nome: nome, sobrenome: sobrenome, email: email };
-        var dataPessoa = JSON.stringify(pessoa);
+    var pessoa = { id: id, nome: nome, sobrenome: sobrenome, email: email };
+    var dataPessoa = JSON.stringify(pessoa);
 
-        $.ajax({
-            type: "POST",
-            url: "http://localhost:8080/api/pessoa/cadastrar",
-            data: dataPessoa,
-            contentType: "application/json",
-            success: deuCerto(pessoa),
-            error: deuErrado,
-        })
+    $.ajax({
+        type: "POST",
+        url: "http://localhost:8080/api/pessoa/cadastrar",
+        data: dataPessoa,
+        contentType: "application/json",
+        success: msgEfetuadoCadastrado,
+        error: msnErroCadastro,
+    })
 
-        function deuCerto(pessoa) {
-            alert(pessoa.nome + " Foi cadastrado com sucesso")
-            $(window).attr('location', 'http://localhost:52330/listarPessoas.html')
 
-        }
-
-        function deuErrado() {
-            alert("erro")
-        }
-
+    function msgEfetuadoCadastrado() {
+        alert(pessoa.nome + " Foi cadastrado com sucesso");
+        $(window).attr('location', 'http://127.0.0.1:5500/listarPessoas.html');
     }
-);
+
+    function msnErroCadastro() {
+        alert("erro")
+    }
+});
 
 var mesmaResposta = null;
 
-
 $("#bntListaDePessoas").click(function() {
+
     $.ajax({
         type: "GET",
         url: "http://localhost:8080/api/pessoa/listar",
-        success: deuCerto,
-        error: deuErro,
+        success: msgListaCarregada,
+        error: msgErroListar,
         dataType: "json"
 
     });
 
-    function deuCerto(response) {
+    function msgListaCarregada(response) {
         if (mesmaResposta == null) {
             mesmaResposta = response;
             popularLista(response)
         } else {
             alert("Não exite mais pessoas na base de dados")
         }
-
-
     }
 
-    function deuErro(response) {
+    function msgErroListar(response) {
         alert("erro")
     }
 
-});
-
-function popularLista(ListPessoas) {
-    let container = document.getElementById("listaDePessoas");
-    for (i = '0'; i < ListPessoas.length; i++) {
-        if (ListPessoas[i].ativo == true) {
-            container.insertAdjacentHTML("beforeend", organizarLista(ListPessoas[i].id, ListPessoas[i].nome, ListPessoas[i].sobrenome, ListPessoas[i].email));
+    function popularLista(ListPessoas) {
+        let container = document.getElementById("listaDePessoas");
+        for (i = '0'; i < ListPessoas.length; i++) {
+            if (ListPessoas[i].ativo == true) {
+                container.insertAdjacentHTML("beforeend", organizarLista(ListPessoas[i].id, ListPessoas[i].nome, ListPessoas[i].sobrenome, ListPessoas[i].email));
+            }
         }
     }
-}
 
-function organizarLista(id, nome, sobrenome, email) {
-    return "<tr>" +
-        "<td> " + nome + " </td> " +
-        "<td> " + sobrenome + " </td> " +
-        "<td>" + email + "</td>" +
-        "<td>  <a href=" + "http://127.0.0.1:5500/CRUD-Pessoa/cadastro.html?" + id + ">" + "<button id=" + "btnAlterar" + "type= " + "button " + "> Alterar" + "</button>" + "</a>" + "</td>" +
-        "<td> <button>Excluir</button>" + "</td>" +
-        "</tr>"
-}
+    function organizarLista(id, nome, sobrenome, email) {
+        return "<tr>" +
+            "<td> " + nome + " </td> " +
+            "<td> " + sobrenome + " </td> " +
+            "<td>" + email + "</td>" +
+            "<td>" + " <button id=" + "btnAlterar" + " value=" + id + "" + "type= " + "button " + " > Alterar" + "</button>" + "</a>" + "</td>" +
+            "<td> <button>Excluir</button>" + "</td>" +
+            "</tr>"
+    }
+});
 
+
+$("#btnAlterar").click(function() {
+    var id = $(this).val();
+
+
+
+});
 
 
 

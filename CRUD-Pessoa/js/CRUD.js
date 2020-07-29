@@ -1,3 +1,6 @@
+$("")
+
+
 $("#FormCadastro").submit(function cadastrar() {
 
     var id = $('#id').val();
@@ -69,7 +72,7 @@ $("#bntListaDePessoas").click(function() {
             "<td> " + nome + " </td> " +
             "<td> " + sobrenome + " </td> " +
             "<td>" + email + "</td>" +
-            "<td>" + " <button type=" + "button \  " +  "id=" + "btnAlterar" + " onclick=" + "alterar("+ (id) + ")" + " > Alterar" + "</button>" +  "</td>" +
+            "<td>" + " <button type=" + "button \  " + "id=" + "btnAlterar" + " onclick=" + "alterar(" + (id) + ")" + " > Alterar" + "</button>" + "</td>" +
             "<td> <button>Excluir</button>" + "</td>" +
             "</tr>"
     }
@@ -77,8 +80,9 @@ $("#bntListaDePessoas").click(function() {
 
 
 
-function alterar(id){
-    alert("test"+ id)
+function alterar(id) {
+
+    console.log(procurarPessoa(id))
 }
 
 
@@ -97,14 +101,10 @@ function procurarPessoa(id) {
         dataType: "json"
     })
 
-
     function deuCerto(response) {
-        $("#id").val(response.id)
-        $("#nome").val(response.nome)
-        $("#sobrenome").val(response.sobrenome)
-        $("#email").val(response.email)
+        console.log(response)
 
-
+        return response
     }
 
     function deuErrado(response) {

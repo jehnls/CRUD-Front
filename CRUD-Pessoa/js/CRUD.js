@@ -69,19 +69,20 @@ $("#bntListaDePessoas").click(function() {
             "<td> " + nome + " </td> " +
             "<td> " + sobrenome + " </td> " +
             "<td>" + email + "</td>" +
-            "<td>" + " <button id=" + "btnAlterar" + " value=" + id + "" + "type= " + "button " + " > Alterar" + "</button>" + "</a>" + "</td>" +
+            "<td>" + " <button type=" + "button \  " +  "id=" + "btnAlterar" + " onclick=" + "alterar("+ (id) + ")" + " > Alterar" + "</button>" +  "</td>" +
             "<td> <button>Excluir</button>" + "</td>" +
             "</tr>"
     }
 });
 
 
-$("#btnAlterar").click(function() {
-    var id = $(this).val();
+
+function alterar(id){
+    alert("test"+ id)
+}
 
 
 
-});
 
 
 

@@ -1,6 +1,3 @@
-$("")
-
-
 $("#FormCadastro").submit(function cadastrar() {
 
     var id = $('#id').val();
@@ -32,6 +29,7 @@ $("#FormCadastro").submit(function cadastrar() {
     }
 });
 
+var pessoaCadastrada = null;
 var mesmaResposta = null;
 
 $("#bntListaDePessoas").click(function() {
@@ -81,10 +79,20 @@ $("#bntListaDePessoas").click(function() {
 
 
 function alterar(id) {
+    var pessoa = procurarPessoa(id)
+    redirect(pessoa)
 
-    console.log(procurarPessoa(id))
+
 }
 
+function redirect(pessoa) {
+
+    var link = "http://127.0.0.1:5500/cadastro.html"
+    var newWindow = window.open(link, "_blank")
+    newWindow.paramId = pessoa;
+}
+
+//ERRO : Esta carregando premeiro a tela, depois carregando a função de procura pessoa. 
 
 
 
@@ -102,26 +110,27 @@ function procurarPessoa(id) {
     })
 
     function deuCerto(response) {
-        console.log(response)
-
-        return response
+        alert(response + "agora que passo")
+        pessoaCadastrada = response;
     }
 
-    function deuErrado(response) {
-        alert(response, "erro")
+    function deuErrado() {
+        "Erro ao procurar pessoa"
     }
 
 };
 
-$("#formCadastro").ready(function() {
-    var query = location.search;
-    var pessoaid = query.split("");
-
-    if (pessoaid[0] != null) {
-
-        procurarPessoa(pessoaid[1]);
+/* $("#formCadastro").ready(function() {
 
 
+
+    if (window.paramId != null) {
+
+        alert(window.paramId)
+
+
+    } else {
+        alert("Cadastre uma pessoa !!")
     }
 
-});
+}); */

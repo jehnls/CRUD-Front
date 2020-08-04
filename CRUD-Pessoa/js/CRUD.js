@@ -79,18 +79,18 @@ $("#bntListaDePessoas").click(function() {
 
 
 function alterar(id) {
-    var pessoa = procurarPessoa(id)
-    redirect(pessoa)
+
+    procurarPessoa(id)
 
 
 }
 
-function redirect(pessoa) {
+/* function redirect(id) {
 
-    var link = "http://127.0.0.1:5500/cadastro.html"
+    var link = "http://127.0.0.1:5500/CRUD-Pessoa/cadastro.html"
     var newWindow = window.open(link, "_blank")
-    newWindow.paramId = pessoa;
-}
+    newWindow.paramId = id;
+} */
 
 //ERRO : Esta carregando premeiro a tela, depois carregando a função de procura pessoa. 
 
@@ -110,8 +110,9 @@ function procurarPessoa(id) {
     })
 
     function deuCerto(response) {
-        alert(response + "agora que passo")
-        pessoaCadastrada = response;
+        var link = "http://127.0.0.1:5500/CRUD-Pessoa/cadastro.html"
+        var newWindow = window.open(link, "_blank")
+        newWindow.paramId = response;
     }
 
     function deuErrado() {
@@ -120,17 +121,18 @@ function procurarPessoa(id) {
 
 };
 
-/* $("#formCadastro").ready(function() {
+window.onload = function() {
 
 
 
     if (window.paramId != null) {
-
-        alert(window.paramId)
-
+        $("#id").val(window.paramId.id)
+        $("#nome").val(window.paramId.nome)
+        $("#sobrenome").val(window.paramId.sobrenome)
+        $("#email").val(window.paramId.email)
 
     } else {
         alert("Cadastre uma pessoa !!")
     }
 
-}); */
+};

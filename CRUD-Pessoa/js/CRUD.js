@@ -110,7 +110,7 @@ function procurarPessoa(id) {
     })
 
     function deuCerto(response) {
-        var link = "http://127.0.0.1:5500/CRUD-Pessoa/cadastro.html"
+        var link = "http://127.0.0.1:5500/cadastro.html"
         var newWindow = window.open(link, "_blank")
         newWindow.paramId = response;
     }

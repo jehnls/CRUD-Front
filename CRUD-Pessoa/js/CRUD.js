@@ -1,12 +1,12 @@
 $("#FormCadastro").submit(function cadastrar() {
 
-    var id = $('#id').val();
-    var nome = $('#nome').val();
-    var sobrenome = $('#sobrenome').val();
-    var email = $('#email').val();
+    var pessoa = {
+        id: $('#id').val(),
+        nome: $('#nome').val(),
+        sobrenome: $('#sobrenome').val(),
+        email: $('#email').val()
+    };
 
-
-    var pessoa = { id: id, nome: nome, sobrenome: sobrenome, email: email };
     var dataPessoa = JSON.stringify(pessoa);
 
     $.ajax({
@@ -52,8 +52,8 @@ $("#bntListaDePessoas").click(function() {
         }
     }
 
-    function msgErroListar(response) {
-        alert("erro")
+    function msgErroListar() {
+        alert("erro") + response.alert
     }
 
     function popularLista(ListPessoas) {
@@ -71,59 +71,68 @@ $("#bntListaDePessoas").click(function() {
             "<td> " + sobrenome + " </td> " +
             "<td>" + email + "</td>" +
             "<td>" + " <button type=" + "button \  " + "id=" + "btnAlterar" + " onclick=" + "alterar(" + (id) + ")" + " > Alterar" + "</button>" + "</td>" +
-            "<td> <button>Excluir</button>" + "</td>" +
+            "<td> <button onclick=" + "desativarPessoa(" + id + ") " + " id=" + "btnDesativar" + ">Excluir</button>" + "</td>" +
             "</tr>"
     }
 });
 
-
-
 function alterar(id) {
 
-    procurarPessoa(id)
-
-
-}
-
-/* function redirect(id) {
-
-    var link = "http://127.0.0.1:5500/CRUD-Pessoa/cadastro.html"
-    var newWindow = window.open(link, "_blank")
-    newWindow.paramId = id;
-} */
-
-//ERRO : Esta carregando premeiro a tela, depois carregando a função de procura pessoa. 
-
-
-
-
-
-
-
-function procurarPessoa(id) {
     $.ajax({
         type: "GET",
         url: "http://localhost:8080/api/pessoa/procurar/ " + id,
-        success: deuCerto,
-        error: deuErrado,
+        success: function(data) {
+            var link = "http://127.0.0.1:5500/cadastro.html"
+            var newWindow = window.open(link, "_blank")
+            newWindow.paramId = data;
+        },
+        error: function() {
+            "Erro ao procurar pessoa"
+        },
         dataType: "json"
     })
 
-    function deuCerto(response) {
-        var link = "http://127.0.0.1:5500/CRUD-Pessoa/cadastro.html"
-        var newWindow = window.open(link, "_blank")
-        newWindow.paramId = response;
-    }
+}
 
-    function deuErrado() {
-        "Erro ao procurar pessoa"
-    }
+function desativarPessoa(id) {
+
+    $.ajax({
+        type: "GET",
+        url: "http://localhost:8080/api/pessoa/procurar/ " + id,
+        success: function(data) {
+            var pessoa = {
+                ativo: false,
+                id: data.id,
+                nome: data.nome,
+                sobrenome: data.sobrenome,
+                email: data.email,
+            }
+
+            dataPessoa = JSON.stringify(pessoa)
+            $.ajax({
+                type: "POST",
+                url: "http://localhost:8080/api/pessoa/cadastrar",
+                data: dataPessoa,
+                contentType: "application/json",
+                success: function() {
+                    alert(pessoa.nome + "Foi desativado com sucesso")
+                },
+                error: function() {
+                    alert("Erro" + data)
+                },
+            })
+        },
+        error: function(data) {
+            console.log(data)
+        },
+        dataType: "json"
+    })
+
+
 
 };
 
-window.onload = function() {
-
-
+$(document).ready(function() {
 
     if (window.paramId != null) {
         $("#id").val(window.paramId.id)
@@ -131,8 +140,6 @@ window.onload = function() {
         $("#sobrenome").val(window.paramId.sobrenome)
         $("#email").val(window.paramId.email)
 
-    } else {
-        alert("Cadastre uma pessoa !!")
     }
 
-};
+});

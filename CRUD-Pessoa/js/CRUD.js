@@ -16,14 +16,16 @@ $("#FormCadastro").submit(function cadastrar() {
         url: "http://localhost:8080/api/pessoa/cadastrar",
         data: dataPessoa,
         contentType: "application/json",
-        success: msgEfetuadoCadastrado,
+        success: msgEfetuadoCadastrado(dataPessoa),
         error: msnErroCadastro,
     })
 
 
-    function msgEfetuadoCadastrado() {
+    function msgEfetuadoCadastrado(data) {
+
         alert(pessoa.nome + " Foi cadastrado com sucesso");
-        $(window).attr('location', 'http://127.0.0.1:5500/CRUD-Pessoa/listarPessoas.html');
+
+
     }
 
     function msnErroCadastro() {
@@ -79,7 +81,7 @@ $("#bntListaDePessoas").click(function () {
     }
 });
 
-//Update peoaple
+//Update people
 function alterar(id) {
 
     $.ajax({
@@ -88,7 +90,7 @@ function alterar(id) {
         success: function (data) {
             var link = "http://127.0.0.1:5500/CRUD-Pessoa/cadastro.html"
             var newWindow = window.open(link, "_blank")
-            newWindow.paramId = data;
+            newWindow.paramPessoa = data;
         },
         error: function () {
             "Erro ao procurar pessoa"
@@ -98,7 +100,7 @@ function alterar(id) {
 
 }
 
-//Search people
+//Disable people
 function desativarPessoa(id) {
     $.ajax({
         type: "GET",
@@ -129,21 +131,14 @@ function desativarPessoa(id) {
     })
 }
 
-//Redirect peoaple, to update.
-function deuCerto(response) {
-    var link = "http://127.0.0.1:5500/cadastro.html"
-    var newWindow = window.open(link, "_blank")
-    newWindow.paramId = response;
-}
-
 //The page resgitration and load
 window.onload = function () {
 
-    if (window.paramId != null) {
-        $("#id").val(window.paramId.id)
-        $("#nome").val(window.paramId.nome)
-        $("#sobrenome").val(window.paramId.sobrenome)
-        $("#email").val(window.paramId.email)
+    if (window.paramPessoa != null) {
+        $("#id").val(window.paramPessoa.id)
+        $("#nome").val(window.paramPessoa.nome)
+        $("#sobrenome").val(window.paramPessoa.sobrenome)
+        $("#email").val(window.paramPessoa.email)
 
     }
 

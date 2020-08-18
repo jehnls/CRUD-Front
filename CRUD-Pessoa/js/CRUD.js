@@ -23,7 +23,7 @@ $("#FormCadastro").submit(function cadastrar() {
 
     function msgEfetuadoCadastrado() {
         alert(pessoa.nome + " Foi cadastrado com sucesso");
-        $(window).attr('location', 'http://127.0.0.1:5500/listarPessoas.html');
+        $(window).attr('location', 'http://127.0.0.1:5500/CRUD-Pessoa/listarPessoas.html');
     }
 
     function msnErroCadastro() {
@@ -35,7 +35,7 @@ $("#FormCadastro").submit(function cadastrar() {
 var mesmaResposta = null;
 
 //Load the page listarPesssoas
-$("#bntListaDePessoas").click(function() {
+$("#bntListaDePessoas").click(function () {
 
     $.ajax({
         type: "GET",
@@ -62,7 +62,7 @@ $("#bntListaDePessoas").click(function() {
 
     function popularLista(ListPessoas) {
         let container = document.getElementById("listaDePessoas");
-        for (i = '0'; i < ListPessoas.length; i++) {
+        for (i = '0';i < ListPessoas.length;i++) {
             if (ListPessoas[i].ativo == true) {
                 container.insertAdjacentHTML("beforeend", organizarLista(ListPessoas[i].id, ListPessoas[i].nome, ListPessoas[i].sobrenome, ListPessoas[i].email));
             }
@@ -74,29 +74,23 @@ $("#bntListaDePessoas").click(function() {
             "<td> " + nome + " </td> " +
             "<td> " + sobrenome + " </td> " +
             "<td>" + email + "</td>" +
-<<<<<<< HEAD
             "<td>" + " <button type=" + "button \  " + "id=" + "btnAlterar" + " onclick=" + "alterar(" + (id) + ")" + " > Alterar" + "</button>" + "</td>" +
-            "<td> <button onclick=" + "desativarPessoa(" + id + ") " + " id=" + "btnDesativar" + ">Excluir</button>" + "</td>" +
-=======
-            "<td>" + " <button type=" + "button \  " + "id=" + "btnAlterar" + " onclick=" + "procurarPessoa(" + (id) + ")" + " > Alterar" + "</button>" + "</td>" +
-            "<td> <button>Excluir</button>" + "</td>" +
->>>>>>> 3000f87f61c7901872848dbb1ff7422be8f9b0c8
-            "</tr>"
+            "<td> <button onclick=" + "desativarPessoa(" + id + ") " + " id=" + "btnDesativar" + ">Excluir</button>" + "</td>"
     }
 });
 
-<<<<<<< HEAD
+//Update peoaple
 function alterar(id) {
 
     $.ajax({
         type: "GET",
         url: "http://localhost:8080/api/pessoa/procurar/ " + id,
-        success: function(data) {
-            var link = "http://127.0.0.1:5500/cadastro.html"
+        success: function (data) {
+            var link = "http://127.0.0.1:5500/CRUD-Pessoa/cadastro.html"
             var newWindow = window.open(link, "_blank")
             newWindow.paramId = data;
         },
-        error: function() {
+        error: function () {
             "Erro ao procurar pessoa"
         },
         dataType: "json"
@@ -104,16 +98,12 @@ function alterar(id) {
 
 }
 
+//Search people
 function desativarPessoa(id) {
-
-=======
-//Search people 
-function procurarPessoa(id) {
->>>>>>> 3000f87f61c7901872848dbb1ff7422be8f9b0c8
     $.ajax({
         type: "GET",
         url: "http://localhost:8080/api/pessoa/procurar/ " + id,
-        success: function(data) {
+        success: function (data) {
             var pessoa = {
                 ativo: false,
                 id: data.id,
@@ -128,50 +118,33 @@ function procurarPessoa(id) {
                 url: "http://localhost:8080/api/pessoa/cadastrar",
                 data: dataPessoa,
                 contentType: "application/json",
-                success: function() {
-                    alert(pessoa.nome + "Foi desativado com sucesso")
+                success: function () {
+                    alert(pessoa.nome + " foi desativado com sucesso")
                 },
-                error: function() {
+                error: function () {
                     alert("Erro" + data)
                 },
             })
-        },
-        error: function(data) {
-            console.log(data)
-        },
-        dataType: "json"
+        }
     })
+}
 
-<<<<<<< HEAD
-=======
-    function deuCerto(response) {
-        var link = "http://127.0.0.1:5500/cadastro.html"
-        var newWindow = window.open(link, "_blank")
-        newWindow.paramId = response;
-    }
->>>>>>> 3000f87f61c7901872848dbb1ff7422be8f9b0c8
+//Redirect peoaple, to update.
+function deuCerto(response) {
+    var link = "http://127.0.0.1:5500/cadastro.html"
+    var newWindow = window.open(link, "_blank")
+    newWindow.paramId = response;
+}
 
-
-};
-
-<<<<<<< HEAD
-$(document).ready(function() {
-
-=======
 //The page resgitration and load
-window.onload = function() {
- 
->>>>>>> 3000f87f61c7901872848dbb1ff7422be8f9b0c8
+window.onload = function () {
+
     if (window.paramId != null) {
         $("#id").val(window.paramId.id)
         $("#nome").val(window.paramId.nome)
         $("#sobrenome").val(window.paramId.sobrenome)
         $("#email").val(window.paramId.email)
 
-<<<<<<< HEAD
     }
-=======
-    } 
->>>>>>> 3000f87f61c7901872848dbb1ff7422be8f9b0c8
 
-});
+};

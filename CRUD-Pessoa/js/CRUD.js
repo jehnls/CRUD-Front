@@ -50,9 +50,14 @@ $("#bntListaDePessoas").click(function () {
 
     function msgListaCarregada(response) {
 
-        if (mesmaResposta == null) {
+        if (mesmaResposta === null) {
             mesmaResposta = response;
-            popularLista(response)
+            if (mesmaResposta.length !== 0) {
+
+                popularLista(response)
+            } else {
+                alert("Não contêm pessoas cadastrada na base de dados")
+            }
         } else {
             alert("Não exite mais pessoas na base de dados")
         }
@@ -65,7 +70,7 @@ $("#bntListaDePessoas").click(function () {
     function popularLista(ListPessoas) {
         let container = document.getElementById("listaDePessoas");
         for (i = '0';i < ListPessoas.length;i++) {
-            if (ListPessoas[i].ativo == true) {
+            if (ListPessoas[i].ativo === true) {
                 container.insertAdjacentHTML("beforeend", organizarLista(ListPessoas[i].id, ListPessoas[i].nome, ListPessoas[i].sobrenome, ListPessoas[i].email));
             }
         }
@@ -134,7 +139,7 @@ function desativarPessoa(id) {
 //The page resgitration and load
 window.onload = function () {
 
-    if (window.paramPessoa != null) {
+    if (window.paramPessoa !== null) {
         $("#id").val(window.paramPessoa.id)
         $("#nome").val(window.paramPessoa.nome)
         $("#sobrenome").val(window.paramPessoa.sobrenome)

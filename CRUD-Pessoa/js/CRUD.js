@@ -22,15 +22,24 @@ $("#FormCadastro").submit(function cadastrar() {
 
 
     function msgEfetuadoCadastrado(data) {
+        console.log(data)
+        if(pessoa.id !== null){
 
-        alert(pessoa.nome + " Foi cadastrado com sucesso");
+             alert(pessoa.nome + " Foi alterado com sucesso");
+        }else{
 
-
+            alert(pessoa.nome + " Foi cadastrado com sucesso");
+        }
+        
+        window.location.href="http://127.0.0.1:5500/listarPessoas.html"
+       
     }
 
     function msnErroCadastro() {
         alert("erro")
     }
+
+
 });
 
 // Check out list of people, is empty
@@ -93,7 +102,7 @@ function alterar(id) {
         type: "GET",
         url: "http://localhost:8080/api/pessoa/procurar/ " + id,
         success: function (data) {
-            var link = "http://127.0.0.1:5500/CRUD-Pessoa/cadastro.html"
+            var link = "http://127.0.0.1:5500/cadastro.html"
             var newWindow = window.open(link, "_blank")
             newWindow.paramPessoa = data;
         },
@@ -148,3 +157,9 @@ window.onload = function () {
     }
 
 };
+
+$("#btnGoPageList").click(function(){
+
+    window.location.href="http://127.0.0.1:5500/listarPessoas.html"
+
+});
